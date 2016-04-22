@@ -4,12 +4,20 @@ import (
 	"crypto/tls"
 	"regexp"
 	"time"
+	"github.com/blang/semver"
 )
 
 var validID *regexp.Regexp = regexp.MustCompile(`\A[A-Za-z0-9._-]*\z`)
 
+type KafkaVersion struct {
+	Release *semver.Version
+}
+
 // Config is used to pass multiple configuration options to Sarama's constructors.
 type Config struct {
+
+	KafkaVersion KafkaVersion
+
 	// Net is the namespace for network-level properties used by the Broker, and
 	// shared by the Client/Producer/Consumer.
 	Net struct {
@@ -218,6 +226,8 @@ type Config struct {
 func NewConfig() *Config {
 	c := &Config{}
 
+	c.KafkaVersion.Release, _ = semver.New("0.9.0.1")
+
 	c.Net.MaxOpenRequests = 5
 	c.Net.DialTimeout = 30 * time.Second
 	c.Net.ReadTimeout = 30 * time.Second
@@ -361,4 +371,8 @@ func (c *Config) Validate() error {
 	}
 
 	return nil
+}
+
+func (v *KafkaVersion) AtLeast(version *semver.Version) bool {
+	return version.GE(*v.Release)
 }
