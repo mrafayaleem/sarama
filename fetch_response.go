@@ -167,7 +167,9 @@ func (fr *FetchResponse) AddMessage(topic string, partition int32, key, value En
 	if value != nil {
 		vb, _ = value.Encode()
 	}
-	msg := &Message{Key: kb, Value: vb}
+
+	// You have to decode the version based on response from server and then specify the version number.
+	msg := &Message{Key: kb, Value: vb, KafkaVersion: &KafkaVersion{Release: V0_9_0_1}}
 	msgBlock := &MessageBlock{Msg: msg, Offset: offset}
 	frb.MsgSet.Messages = append(frb.MsgSet.Messages, msgBlock)
 }

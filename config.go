@@ -226,7 +226,7 @@ type Config struct {
 func NewConfig() *Config {
 	c := &Config{}
 
-	c.KafkaVersion.Release, _ = semver.New("0.9.0.1")
+	c.KafkaVersion.Release = LatestStable
 
 	c.Net.MaxOpenRequests = 5
 	c.Net.DialTimeout = 30 * time.Second
@@ -374,5 +374,5 @@ func (c *Config) Validate() error {
 }
 
 func (v *KafkaVersion) AtLeast(version *semver.Version) bool {
-	return version.GE(*v.Release)
+	return v.Release.GE(*version)
 }
