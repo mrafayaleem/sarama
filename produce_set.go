@@ -71,6 +71,7 @@ func (ps *produceSet) buildRequest() *ProduceRequest {
 	req := &ProduceRequest{
 		RequiredAcks: ps.parent.conf.Producer.RequiredAcks,
 		Timeout:      int32(ps.parent.conf.Producer.Timeout / time.Millisecond),
+		KafkaVersion: &ps.parent.conf.KafkaVersion,
 	}
 
 	for topic, partitionSet := range ps.msgs {

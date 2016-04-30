@@ -22,6 +22,7 @@ func (pr *ProduceResponseBlock) decode(pd packetDecoder) (err error) {
 
 type ProduceResponse struct {
 	Blocks map[string]map[int32]*ProduceResponseBlock
+	ThrottleTime int32
 }
 
 func (pr *ProduceResponse) decode(pd packetDecoder) (err error) {
@@ -58,7 +59,14 @@ func (pr *ProduceResponse) decode(pd packetDecoder) (err error) {
 			pr.Blocks[name][id] = block
 		}
 	}
+	throttleTime, err := pd.getInt32()
 
+	if err == nil {
+		pr.ThrottleTime = throttleTime
+		Logger.Println("Successfully parsed throttle time", throttleTime)
+	} else {
+		Logger.Println("Skipped throttle parsing because of insufficient data!")
+	}
 	return nil
 }
 
