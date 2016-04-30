@@ -112,28 +112,28 @@ func (bc *bufConn) Read(b []byte) (n int, err error) {
 	return bc.buf.Read(b)
 }
 
-type Version struct {
+type version struct {
 	versionArr [4]int
 
 }
 
-func NewVersion(version string) (*Version, error) {
-	x := strings.Split(version, ".")
+func NewVersion(ver string) (*version, error) {
+	x := strings.Split(ver, ".")
 	ordA, _ := strconv.Atoi(x[0])
 	ordB, _ := strconv.Atoi(x[1])
 	ordC, _ := strconv.Atoi(x[2])
 	ordD, _ := strconv.Atoi(x[3])
 
-	ver := &Version{
+	v := &version{
 		versionArr: [4]int{ordA, ordB, ordC, ordD},
 	}
-	return ver, nil
+	return v, nil
 }
 
-func (v *Version) GE(version *Version) bool {
+func (v *version) GE(ver *version) bool {
 	for k, ord := range v.versionArr {
 		if ord != 0 {
-			if ord >= version.versionArr[k] {
+			if ord >= ver.versionArr[k] {
 				return true
 			} else {
 				return false

@@ -9,7 +9,7 @@ import (
 var validID *regexp.Regexp = regexp.MustCompile(`\A[A-Za-z0-9._-]*\z`)
 
 type KafkaVersion struct {
-	Release *Version
+	Release *version
 }
 
 // Config is used to pass multiple configuration options to Sarama's constructors.
@@ -372,6 +372,6 @@ func (c *Config) Validate() error {
 	return nil
 }
 
-func (v *KafkaVersion) AtLeast(version *Version) bool {
-	return v.Release.GE(version)
+func (v *KafkaVersion) AtLeast(ver *version) bool {
+	return v.Release.GE(ver)
 }
