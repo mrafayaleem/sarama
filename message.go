@@ -42,12 +42,6 @@ func (m *Message) encode(pe packetEncoder) error {
 	attributes := int8(m.Codec) & compressionCodecMask
 	pe.putInt8(attributes)
 
-	if m.KafkaVersion.AtLeast(V0_10_0) {
-		Logger.Println("You can use timestamps with this Kafka version which I am implementing now")
-	} else {
-		Logger.Println("You cannot use timestamps with this Kafka version")
-	}
-
 	err := pe.putBytes(m.Key)
 	if err != nil {
 		return err

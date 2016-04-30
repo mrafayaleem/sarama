@@ -34,6 +34,7 @@ func (pr *FetchResponseBlock) decode(pd packetDecoder) (err error) {
 
 type FetchResponse struct {
 	Blocks map[string]map[int32]*FetchResponseBlock
+	ThrottleTime int32
 }
 
 func (pr *FetchResponseBlock) encode(pe packetEncoder) (err error) {
@@ -82,6 +83,16 @@ func (fr *FetchResponse) decode(pd packetDecoder) (err error) {
 			}
 			fr.Blocks[name][id] = block
 		}
+	}
+
+	Logger.Println("Remaining bytes in packet should be 4 if any. They are:", pd.remaining())
+	throttleTime, err := pd.getInt32()
+
+	if err == nil {
+		fr.ThrottleTime = throttleTime
+		Logger.Println("Successfully parsed throttle time", throttleTime)
+	} else {
+		Logger.Println("Skipped throttle parsing because of insufficient data!")
 	}
 
 	return nil

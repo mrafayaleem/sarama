@@ -116,13 +116,10 @@ func (p *ProduceRequest) version() int16 {
 	// v1 indicates the client can parse the quota ThrottleTime in the Produce Response.
 	// v2 indicates the client can parse the timestamp field in the produce Response along with the ThrottleTime
 	if p.KafkaVersion.AtLeast(V0_10_0) {
-		Logger.Println("Gonna return v2 fro ProduceRequest")
 		return 2
 	} else if p.KafkaVersion.AtLeast(V0_9_0_0){
-		Logger.Println("Gonna return v1 fro ProduceRequest")
 		return 1
 	} else {
-		Logger.Println("Gonna return v0 fro ProduceRequest")
 		return 0
 	}
 }
