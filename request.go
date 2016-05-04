@@ -90,7 +90,7 @@ func allocateBody(key, version int16) requestBody {
 	case 3:
 		return &MetadataRequest{}
 	case 8:
-		return &OffsetCommitRequest{Version: version}
+		return &OffsetCommitRequest{}
 	case 9:
 		return &OffsetFetchRequest{}
 	case 10:
