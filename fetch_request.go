@@ -111,13 +111,10 @@ func (f *FetchRequest) version() int16 {
 	// Fetch Response v2 might either contain message format v0 or message format v1.
 	// See FetchRequest decode implementation for more details.
 	if f.KafkaVersion.AtLeast(V0_10_0) {
-		Logger.Println("Sending 2 as fetch request version")
 		return 2
 	} else if f.KafkaVersion.AtLeast(V0_9_0_0){
-		Logger.Println("Sending 1 as fetch request version")
 		return 1
 	} else {
-		Logger.Println("Sending 0 as fetch request version")
 		return 0
 	}
 }

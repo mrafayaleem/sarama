@@ -188,6 +188,7 @@ func (b *Broker) Produce(request *ProduceRequest) (*ProduceResponse, error) {
 		err = b.sendAndReceive(request, nil)
 	} else {
 		response = new(ProduceResponse)
+		response.KafkaVersion = request.KafkaVersion
 		err = b.sendAndReceive(request, response)
 	}
 

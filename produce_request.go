@@ -21,6 +21,7 @@ type ProduceRequest struct {
 	Timeout      int32
 	msgSets      map[string]map[int32]*MessageSet
 
+	// This is not part of the request bytes sent to Kafka
 	KafkaVersion *KafkaVersion
 }
 
