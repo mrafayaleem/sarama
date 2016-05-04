@@ -34,7 +34,12 @@ func (pr *FetchResponseBlock) decode(pd packetDecoder) (err error) {
 
 type FetchResponse struct {
 	Blocks map[string]map[int32]*FetchResponseBlock
+
+	// zero means the request did not violate any quota. This value is applicable Kafka version >= 0.9.0.0
 	ThrottleTime int32
+
+	// This is not part of the response bytes received from Kafka
+	KafkaVersion *KafkaVersion
 }
 
 func (pr *FetchResponseBlock) encode(pe packetEncoder) (err error) {
@@ -52,13 +57,11 @@ func (pr *FetchResponseBlock) encode(pe packetEncoder) (err error) {
 
 func (fr *FetchResponse) decode(pd packetDecoder) (err error) {
 
-	throttleTime, err := pd.getInt32()
-
-	if err == nil {
-		fr.ThrottleTime = throttleTime
-		Logger.Println("Successfully parsed throttle time", throttleTime)
-	} else {
-		Logger.Println("Skipped throttle parsing because of insufficient data!")
+	if fr.KafkaVersion.AtLeast(V0_9_0_0) {
+		fr.ThrottleTime, err = pd.getInt32()
+		if err != nil {
+			return err
+		}
 	}
 
 	numTopics, err := pd.getArrayLength()

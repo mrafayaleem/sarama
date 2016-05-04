@@ -200,6 +200,8 @@ func (b *Broker) Produce(request *ProduceRequest) (*ProduceResponse, error) {
 
 func (b *Broker) Fetch(request *FetchRequest) (*FetchResponse, error) {
 	response := new(FetchResponse)
+	// Set the kafka version here so that FetchResponse decode method knows when to parse what
+	response.KafkaVersion = request.KafkaVersion
 
 	err := b.sendAndReceive(request, response)
 

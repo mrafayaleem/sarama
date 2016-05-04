@@ -26,6 +26,7 @@ type FetchRequest struct {
 	MinBytes    int32
 	blocks      map[string]map[int32]*fetchRequestBlock
 
+	// This is not part of the request bytes sent to Kafka
 	KafkaVersion *KafkaVersion
 }
 
