@@ -46,20 +46,13 @@ type OffsetCommitRequest struct {
 	ConsumerID              string // v1 or later
 	RetentionTime           int64  // v2 or later
 
-	// Version can be:
-	// - 0 (kafka 0.8.1 and later)
-	// - 1 (kafka 0.8.2 and later)
-	// - 2 (kafka 0.8.3 and later)
-	//Version int16
 	blocks  map[string]map[int32]*offsetCommitRequestBlock
 
+	// This is not part of the request bytes sent to Kafka
 	KafkaVersion *KafkaVersion
 }
 
 func (r *OffsetCommitRequest) encode(pe packetEncoder) error {
-	if r.version() < 0 || r.version() > 2 {
-		return PacketEncodingError{"invalid or unsupported OffsetCommitRequest version field"}
-	}
 
 	if err := pe.putString(r.ConsumerGroup); err != nil {
 		return err
@@ -168,7 +161,6 @@ func (r *OffsetCommitRequest) version() int16 {
 	} else {
 		return 1
 	}
-	//return r.Version
 }
 
 func (r *OffsetCommitRequest) AddBlock(topic string, partitionID int32, offset int64, timestamp int64, metadata string) {
