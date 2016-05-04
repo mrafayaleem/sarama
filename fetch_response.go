@@ -51,6 +51,16 @@ func (pr *FetchResponseBlock) encode(pe packetEncoder) (err error) {
 }
 
 func (fr *FetchResponse) decode(pd packetDecoder) (err error) {
+
+	throttleTime, err := pd.getInt32()
+
+	if err == nil {
+		fr.ThrottleTime = throttleTime
+		Logger.Println("Successfully parsed throttle time", throttleTime)
+	} else {
+		Logger.Println("Skipped throttle parsing because of insufficient data!")
+	}
+
 	numTopics, err := pd.getArrayLength()
 	if err != nil {
 		return err
@@ -83,16 +93,6 @@ func (fr *FetchResponse) decode(pd packetDecoder) (err error) {
 			}
 			fr.Blocks[name][id] = block
 		}
-	}
-
-	Logger.Println("Remaining bytes in packet should be 4 if any. They are:", pd.remaining())
-	throttleTime, err := pd.getInt32()
-
-	if err == nil {
-		fr.ThrottleTime = throttleTime
-		Logger.Println("Successfully parsed throttle time", throttleTime)
-	} else {
-		Logger.Println("Skipped throttle parsing because of insufficient data!")
 	}
 
 	return nil
