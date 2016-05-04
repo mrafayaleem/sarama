@@ -228,6 +228,7 @@ func (b *Broker) CommitOffset(request *OffsetCommitRequest) (*OffsetCommitRespon
 
 func (b *Broker) FetchOffset(request *OffsetFetchRequest) (*OffsetFetchResponse, error) {
 	response := new(OffsetFetchResponse)
+	response.KafkaVersion = request.KafkaVersion
 
 	err := b.sendAndReceive(request, response)
 

@@ -258,7 +258,7 @@ func (pom *partitionOffsetManager) selectBroker() error {
 
 func (pom *partitionOffsetManager) fetchInitialOffset(retries int) error {
 	request := new(OffsetFetchRequest)
-	request.Version = 1
+	request.KafkaVersion = &pom.parent.conf.KafkaVersion
 	request.ConsumerGroup = pom.parent.group
 	request.AddPartition(pom.topic, pom.partition)
 
