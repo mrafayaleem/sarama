@@ -679,8 +679,8 @@ func (bc *brokerConsumer) abort(err error) {
 
 func (bc *brokerConsumer) fetchNewMessages() (*FetchResponse, error) {
 	request := &FetchRequest{
-		MinBytes:    bc.consumer.conf.Consumer.Fetch.Min,
-		MaxWaitTime: int32(bc.consumer.conf.Consumer.MaxWaitTime / time.Millisecond),
+		MinBytes:     bc.consumer.conf.Consumer.Fetch.Min,
+		MaxWaitTime:  int32(bc.consumer.conf.Consumer.MaxWaitTime / time.Millisecond),
 		KafkaVersion: &bc.consumer.conf.KafkaVersion,
 	}
 

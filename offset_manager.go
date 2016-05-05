@@ -491,13 +491,13 @@ func (bom *brokerOffsetManager) constructRequest() *OffsetCommitRequest {
 			RetentionTime:           int64(bom.parent.conf.Consumer.Offsets.Retention / time.Millisecond),
 			ConsumerGroup:           bom.parent.group,
 			ConsumerGroupGeneration: GroupGenerationUndefined,
-			KafkaVersion: &bom.parent.conf.KafkaVersion,
+			KafkaVersion:            &bom.parent.conf.KafkaVersion,
 		}
 	} else {
 		r = &OffsetCommitRequest{
 			ConsumerGroup:           bom.parent.group,
 			ConsumerGroupGeneration: GroupGenerationUndefined,
-			KafkaVersion: &bom.parent.conf.KafkaVersion,
+			KafkaVersion:            &bom.parent.conf.KafkaVersion,
 		}
 
 	}

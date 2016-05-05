@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"net"
 	"sort"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 type none struct{}
@@ -114,7 +114,6 @@ func (bc *bufConn) Read(b []byte) (n int, err error) {
 
 type kVersion struct {
 	versionArr [4]int
-
 }
 
 func NewVersion(ver string) (*kVersion, error) {

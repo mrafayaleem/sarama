@@ -55,7 +55,6 @@ var (
 )
 
 func TestOffsetCommitRequestV0(t *testing.T) {
-	t.Skip()
 	request := new(OffsetCommitRequest)
 	request.KafkaVersion = &KafkaVersion{Release: V0_8_1_0}
 	request.ConsumerGroup = "foobar"

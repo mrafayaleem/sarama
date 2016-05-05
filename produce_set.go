@@ -53,9 +53,9 @@ func (ps *produceSet) add(msg *ProducerMessage) error {
 
 	set.msgs = append(set.msgs, msg)
 	set.setToSend.addMessage(&Message{
-		Codec: CompressionNone,
-		Key: key,
-		Value: val,
+		Codec:        CompressionNone,
+		Key:          key,
+		Value:        val,
 		KafkaVersion: &ps.parent.conf.KafkaVersion,
 	})
 
@@ -89,9 +89,9 @@ func (ps *produceSet) buildRequest() *ProduceRequest {
 					panic(err)
 				}
 				req.AddMessage(topic, partition, &Message{
-					Codec: ps.parent.conf.Producer.Compression,
-					Key:   nil,
-					Value: payload,
+					Codec:        ps.parent.conf.Producer.Compression,
+					Key:          nil,
+					Value:        payload,
 					KafkaVersion: &ps.parent.conf.KafkaVersion,
 				})
 			}

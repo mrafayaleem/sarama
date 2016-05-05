@@ -46,7 +46,7 @@ type OffsetCommitRequest struct {
 	ConsumerID              string // v1 or later
 	RetentionTime           int64  // v2 or later
 
-	blocks  map[string]map[int32]*offsetCommitRequestBlock
+	blocks map[string]map[int32]*offsetCommitRequestBlock
 
 	// This is not part of the request bytes sent to Kafka
 	KafkaVersion *KafkaVersion

@@ -118,7 +118,7 @@ func (p *ProduceRequest) version() int16 {
 	// v2 indicates the client can parse the timestamp field in the produce Response along with the ThrottleTime
 	if p.KafkaVersion.AtLeast(V0_10_0) {
 		return 2
-	} else if p.KafkaVersion.AtLeast(V0_9_0_0){
+	} else if p.KafkaVersion.AtLeast(V0_9_0_0) {
 		return 1
 	} else {
 		return 0

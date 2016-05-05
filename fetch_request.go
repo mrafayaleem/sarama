@@ -112,7 +112,7 @@ func (f *FetchRequest) version() int16 {
 	// See FetchRequest decode implementation for more details.
 	if f.KafkaVersion.AtLeast(V0_10_0) {
 		return 2
-	} else if f.KafkaVersion.AtLeast(V0_9_0_0){
+	} else if f.KafkaVersion.AtLeast(V0_9_0_0) {
 		return 1
 	} else {
 		return 0

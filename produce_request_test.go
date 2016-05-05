@@ -44,9 +44,9 @@ func TestProduceRequest(t *testing.T) {
 	testRequest(t, "header", request, produceRequestHeader)
 
 	request.AddMessage("topic", 0xAD, &Message{
-		Codec: CompressionNone,
-		Key: nil,
-		Value: []byte{0x00, 0xEE},
+		Codec:        CompressionNone,
+		Key:          nil,
+		Value:        []byte{0x00, 0xEE},
 		KafkaVersion: &KafkaVersion{Release: V0_8_2_2},
 	})
 	testRequest(t, "one message", request, produceRequestOneMessage)
