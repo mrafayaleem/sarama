@@ -488,7 +488,6 @@ func (bom *brokerOffsetManager) constructRequest() *OffsetCommitRequest {
 	if bom.parent.conf.KafkaVersion.AtLeast(V0_9_0_0) {
 		perPartitionTimestamp = ReceiveTime
 		r = &OffsetCommitRequest{
-			//Version:                 2,
 			RetentionTime:           int64(bom.parent.conf.Consumer.Offsets.Retention / time.Millisecond),
 			ConsumerGroup:           bom.parent.group,
 			ConsumerGroupGeneration: GroupGenerationUndefined,
@@ -496,7 +495,6 @@ func (bom *brokerOffsetManager) constructRequest() *OffsetCommitRequest {
 		}
 	} else {
 		r = &OffsetCommitRequest{
-			//Version:                 1,
 			ConsumerGroup:           bom.parent.group,
 			ConsumerGroupGeneration: GroupGenerationUndefined,
 			KafkaVersion: &bom.parent.conf.KafkaVersion,

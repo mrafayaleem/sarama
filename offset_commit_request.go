@@ -53,7 +53,6 @@ type OffsetCommitRequest struct {
 }
 
 func (r *OffsetCommitRequest) encode(pe packetEncoder) error {
-
 	if err := pe.putString(r.ConsumerGroup); err != nil {
 		return err
 	}

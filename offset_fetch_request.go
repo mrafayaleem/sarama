@@ -9,7 +9,6 @@ type OffsetFetchRequest struct {
 }
 
 func (r *OffsetFetchRequest) encode(pe packetEncoder) (err error) {
-
 	if err = pe.putString(r.ConsumerGroup); err != nil {
 		return err
 	}

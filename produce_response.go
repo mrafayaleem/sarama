@@ -22,7 +22,6 @@ func (pr *ProduceResponseBlock) decode(pd packetDecoder) (err error) {
 
 type ProduceResponse struct {
 	Blocks map[string]map[int32]*ProduceResponseBlock
-
 	// zero means the request did not violate any quota. This value is applicable only on Kafka version >= 0.9.0.0
 	ThrottleTime int32
 
