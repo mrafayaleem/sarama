@@ -157,8 +157,10 @@ func (r *OffsetCommitRequest) key() int16 {
 func (r *OffsetCommitRequest) version() int16 {
 	if r.KafkaVersion.AtLeast(V0_9_0_0) {
 		return 2
-	} else {
+	} else if r.KafkaVersion.AtLeast(V0_8_2_0) {
 		return 1
+	} else {
+		return 0
 	}
 }
 
