@@ -227,7 +227,7 @@ type Config struct {
 func NewConfig() *Config {
 	c := &Config{}
 
-	c.KafkaVersion.Release = LatestStable
+	c.KafkaVersion.Release = V0_8_2_2
 
 	c.Net.MaxOpenRequests = 5
 	c.Net.DialTimeout = 30 * time.Second

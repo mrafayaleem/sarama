@@ -1,5 +1,6 @@
 package sarama
 
+
 type FetchResponseBlock struct {
 	Err                 KError
 	HighWaterMarkOffset int64

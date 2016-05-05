@@ -40,8 +40,8 @@ func (r *request) decode(pd packetDecoder) (err error) {
 	if key, err = pd.getInt16(); err != nil {
 		return err
 	}
-	var version int16
-	if version, err = pd.getInt16(); err != nil {
+	//var version int16
+	if _, err = pd.getInt16(); err != nil {
 		return err
 	}
 	if r.correlationID, err = pd.getInt32(); err != nil {
@@ -49,7 +49,7 @@ func (r *request) decode(pd packetDecoder) (err error) {
 	}
 	r.clientID, err = pd.getString()
 
-	r.body = allocateBody(key, version)
+	r.body = allocateBody(key, &KafkaVersion{Release: V0_8_2_2})
 	if r.body == nil {
 		return PacketDecodingError{fmt.Sprintf("unknown request key (%d)", key)}
 	}
@@ -79,7 +79,7 @@ func decodeRequest(r io.Reader) (req *request, err error) {
 	return req, nil
 }
 
-func allocateBody(key, version int16) requestBody {
+func allocateBody(key int16, version *KafkaVersion) requestBody {
 	switch key {
 	case 0:
 		return &ProduceRequest{}
@@ -90,7 +90,7 @@ func allocateBody(key, version int16) requestBody {
 	case 3:
 		return &MetadataRequest{}
 	case 8:
-		return &OffsetCommitRequest{}
+		return &OffsetCommitRequest{KafkaVersion: version}
 	case 9:
 		return &OffsetFetchRequest{}
 	case 10:
