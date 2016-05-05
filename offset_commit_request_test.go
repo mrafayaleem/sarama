@@ -78,7 +78,6 @@ func TestOffsetCommitRequestV1(t *testing.T) {
 }
 
 func TestOffsetCommitRequestV2(t *testing.T) {
-	t.Skip()
 	request := new(OffsetCommitRequest)
 	request.ConsumerGroup = "foobar"
 	request.ConsumerID = "cons"
